@@ -14,7 +14,7 @@
             <param name="detection_id_offset" value="11"/>
             <rosparam param="input_topics">
                 - composite/lasers_aggregated
-                - composite/rgbd_upper_body_aggregated
+                - composite/oak_aggregated
             </rosparam>
             <remap from="output" to="composite/lasers_upper_body_fused"/>
         </node>
@@ -26,7 +26,7 @@
         </node>  
 
         <!-- Fuse result with groundHOG, which has unreliable depth estimates, thus we should fuse in polar space -->
-        <node name="fuse_lasers_upper_body_and_ground_hog" pkg="nodelet" type="nodelet" args="load spencer_detected_person_association/PolarNNFuserNodelet detected_person_association_nodelet_manager" output="screen">
+        <!--node name="fuse_lasers_upper_body_and_ground_hog" pkg="nodelet" type="nodelet" args="load spencer_detected_person_association/PolarNNFuserNodelet detected_person_association_nodelet_manager" output="screen">
             <param name="detection_id_increment" value="20"/>
             <param name="detection_id_offset" value="12"/>
             <param name="fused_radial_weight_for_topic1" value="0.95"/>
@@ -36,7 +36,7 @@
                 - composite/rgbd_ground_hog_aggregated
             </rosparam>
             <remap from="output" to="composite/lasers_upper_body_ground_hog_fused"/>
-        </node>
+        </node-->
 
     </group>
 
