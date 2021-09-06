@@ -112,6 +112,13 @@ namespace spencer_detected_person_association
         typedef message_filters::sync_policies::ApproximateTime<spencer_tracking_msgs::CompositeDetectedPersons, spencer_tracking_msgs::CompositeDetectedPersons> SyncPolicyWithTwoInputs;
         typedef message_filters::Synchronizer<SyncPolicyWithTwoInputs> SynchronizerWithTwoInputs;
         boost::shared_ptr< SynchronizerWithTwoInputs > m_synchronizerWithTwoInputs;
+
+ // --- For THREE input topics -- //
+        void onThreeInputMessagesReceived(spencer_tracking_msgs::CompositeDetectedPersons::ConstPtr msg1, spencer_tracking_msgs::CompositeDetectedPersons::ConstPtr msg2,spencer_tracking_msgs::CompositeDetectedPersons::ConstPtr msg3);
+        
+        typedef message_filters::sync_policies::ApproximateTime<spencer_tracking_msgs::CompositeDetectedPersons, spencer_tracking_msgs::CompositeDetectedPersons,spencer_tracking_msgs::CompositeDetectedPersons> SyncPolicyWithThreeInputs;
+        typedef message_filters::Synchronizer<SyncPolicyWithThreeInputs> SynchronizerWithThreeInputs;
+        boost::shared_ptr< SynchronizerWithThreeInputs > m_synchronizerWithThreeInputs;
     };
 }
 

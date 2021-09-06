@@ -179,6 +179,15 @@ namespace spencer_detected_person_association
             m_currentCallback = m_synchronizerWithTwoInputs->registerCallback(&CompositeDetectedPersonsSynchronizer::onTwoInputMessagesReceived, this);
             break;
         }
+        case 3: {
+            SyncPolicyWithThreeInputs syncPolicyWithThreeInputs(m_queueSize);
+            syncPolicyWithThreeInputs.setAgePenalty(m_agePenalty);
+            const SyncPolicyWithThreeInputs constSyncPolicyWithThreeInputs = syncPolicyWithThreeInputs;
+
+            m_synchronizerWithThreeInputs.reset(new SynchronizerWithThreeInputs(constSyncPolicyWithThreeInputs, *activeTopics[0], *activeTopics[1],*activeTopics[2]));
+            m_currentCallback = m_synchronizerWithThreeInputs->registerCallback(&CompositeDetectedPersonsSynchronizer::onThreeInputMessagesReceived, this);
+            break;
+        }
         default:
             ROS_ASSERT_MSG(false, "CompositeDetectedPersonsSynchronizer not implemented for %zu input topics!", activeTopics.size());
         }
@@ -208,6 +217,14 @@ namespace spencer_detected_person_association
         std::vector<spencer_tracking_msgs::CompositeDetectedPersons::ConstPtr> msgs;
         msgs.push_back(msg1);
         msgs.push_back(msg2);
+        handleNewInputMessages(msgs);
+    }
+        void CompositeDetectedPersonsSynchronizer::onThreeInputMessagesReceived(spencer_tracking_msgs::CompositeDetectedPersons::ConstPtr msg1, spencer_tracking_msgs::CompositeDetectedPersons::ConstPtr msg2,spencer_tracking_msgs::CompositeDetectedPersons::ConstPtr msg3)
+    {
+        std::vector<spencer_tracking_msgs::CompositeDetectedPersons::ConstPtr> msgs;
+        msgs.push_back(msg1);
+        msgs.push_back(msg2);
+        msg.push_back(msg3);
         handleNewInputMessages(msgs);
     }
 
