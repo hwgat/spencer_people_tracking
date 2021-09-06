@@ -224,7 +224,7 @@ namespace spencer_detected_person_association
         std::vector<spencer_tracking_msgs::CompositeDetectedPersons::ConstPtr> msgs;
         msgs.push_back(msg1);
         msgs.push_back(msg2);
-        msg.push_back(msg3);
+        msgs.push_back(msg3);
         handleNewInputMessages(msgs);
     }
 
